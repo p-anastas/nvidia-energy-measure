@@ -40,7 +40,7 @@ NVEM_ROOT_DIR=**root_location_of_this_repo**
 CUDA_TOOLKIT_ROOT_DIR=**Path_to_your_cuda_location**
 INCLUDECUDASAMPLES = -I$(CUDA_TOOLKIT_ROOT_DIR)/samples/common/inc/
 HEADERNVEMAPI = -L/usr/lib64/nvidia -lnvidia-ml -L/usr/lib64 -lcuda -I/usr/include -lpthread -I/$(NVEM_ROOT_DIR)/include
-NVEMSRC = $(NVEM_ROOT_DIR)/src/\*.c\*
+NVEMSRC = $(NVEM_ROOT_DIR)/src/*.c*
 ```
 
 - Add $(HEADERNVEMAPI) at the end of *nvcc* compilation commands.
@@ -82,4 +82,6 @@ typedef struct nvem_results{
 	double J_estimated;
 }* NvemStats_p;
 ```
+
+Note: using the actual API does NOT require using the cmakefile to build the project.
 
