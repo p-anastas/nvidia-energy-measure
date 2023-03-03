@@ -1,8 +1,8 @@
 cmake_minimum_required (VERSION 3.10)
 #set(CMAKE_VERBOSE_MAKEFILE on)
 
-## 1) CUDA PREFIX
-set (CUDA_TOOLKIT_ROOT_DIR "/usr/local/cuda-11.0")
+## 1) TODO: CUDA PREFIX - replace with your CUDA path
+set (CUDA_TOOLKIT_ROOT_DIR $ENV{PARALIA_CUDA_TOOLKIT_PREFIX})
 
 # 	a) Compiler
 set (CMAKE_CUDA_COMPILER ${CUDA_TOOLKIT_ROOT_DIR}/bin/nvcc)
@@ -11,7 +11,7 @@ set (CMAKE_CUDA_COMPILER ${CUDA_TOOLKIT_ROOT_DIR}/bin/nvcc)
 set (CMAKE_CUDA_FLAGS "-w -O3") # -arch=sm_70 35 for Tesla K40, 70 for V100, 61 for GTX 1060/70
 message("CMAKE_CUDA_FLAGS: " ${CMAKE_CUDA_FLAGS})
 
-#	c) Architecture 
+#	c) Architecture
 if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
   set(CMAKE_CUDA_ARCHITECTURES 70) #35 for Tesla K40, 70 for V100, 61 for GTX 1060/70
 endif()
@@ -33,11 +33,11 @@ message( "CUDA_LINK: " ${CUDA_LINK} )
 
 set(NVMLAPI_PREFIX ${PROJECT_SOURCE_DIR})
 set (NVMLAPI_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src )
-set (NVMLAPI_INCLUDE_DIRS ${NVMLAPI_PREFIX}/include) # -L${CUDA_LD} 
+set (NVMLAPI_INCLUDE_DIRS ${NVMLAPI_PREFIX}/include) # -L${CUDA_LD}
 include_directories(${NVMLAPI_INCLUDE_DIRS} )
 message( "NVMLAPI_INCLUDE_DIRS: " ${NVMLAPI_INCLUDE_DIRS} )
 
-set (NVMLAPI_LINK "-L${CUDA_LD} -lnvidia-ml -L/usr/lib64 -lcuda -lpthread") # -L${CUDA_LD} 
+set (NVMLAPI_LINK "-L${CUDA_LD} -lnvidia-ml -L/usr/lib64 -lcuda -lpthread") # -L${CUDA_LD}
 message( "NVMLAPI_LINK: " ${NVMLAPI_LINK} )
 
 set (INTERNAL_LINK_LIB "${CUDA_LINK} ${NVMLAPI_LINK} -lrt -ldl")
@@ -53,4 +53,3 @@ message( "LINK_LIB: " ${LINK_LIB} )
 
 add_executable (example ${NVMLAPI_PREFIX}/example_main.cu)
 target_link_libraries(example ${LINK_LIB} nvidia_powa)
-
