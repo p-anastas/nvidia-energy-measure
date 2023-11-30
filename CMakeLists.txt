@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.10)
 #set(CMAKE_VERBOSE_MAKEFILE on)
 
 ## 1) TODO: CUDA PREFIX - replace with your CUDA path
-set (CUDA_TOOLKIT_ROOT_DIR $ENV{PARALIA_CUDA_TOOLKIT_PREFIX})
+set (CUDA_TOOLKIT_ROOT_DIR $ENV{CHANGELINK_CUDA_TOOLKIT_PREFIX})
 
 # 	a) Compiler
 set (CMAKE_CUDA_COMPILER ${CUDA_TOOLKIT_ROOT_DIR}/bin/nvcc)
@@ -13,7 +13,7 @@ message("CMAKE_CUDA_FLAGS: " ${CMAKE_CUDA_FLAGS})
 
 #	c) Architecture
 if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
-  set(CMAKE_CUDA_ARCHITECTURES 70) #35 for Tesla K40, 70 for V100, 61 for GTX 1060/70
+  set(CMAKE_CUDA_ARCHITECTURES 80) #35 for Tesla K40, 70 for V100, 61 for GTX 1060/70
 endif()
 
 project (nvidia-powa CXX CUDA)
